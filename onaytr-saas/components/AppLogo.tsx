@@ -26,7 +26,14 @@ const domainOverrides: Record<string, string> = {
   'appstore': 'apple.com',
   'playstore': 'play.google.com',
   'googleplay': 'play.google.com',
+  'hopi': 'hopi.com.tr',
+  'imo': 'imo.im',
+  'easypay': 'easypay.ua',
 };
+
+const SKIP_FAVICON_SERVICES = new Set([
+  'other', 'diğer', 'diger', 'any', 'hepsi', 'tüm'
+]);
 
 function getGoogleFaviconUrl(name: string): string {
   const domain = domainOverrides[name] || `${name}.com`;
@@ -62,7 +69,14 @@ export default function AppLogo({ name, className = "h-10 w-10" }: AppLogoProps)
   };
 
   const handleImageError = () => {
-    setStage((prev) => (prev < 2 ? (prev + 1) as Stage : 3));
+    setStage((prev) => {
+      if (prev === 0) return 1;
+      if (prev === 1) {
+        if (SKIP_FAVICON_SERVICES.has(cleanName)) return 3;
+        return 2;
+      }
+      return 3;
+    });
   };
 
   // Determine category and styling for fallback

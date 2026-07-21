@@ -14,10 +14,12 @@ declare const globalThis: {
     heroSms: any;
     exchangeRate: number;
   } | null;
+  cachedProcessedPricing: Map<string, { timestamp: number; data: any }> | undefined;
   lastFetchTime: number;
 } & typeof global;
 
-const CACHE_TTL_MS = 60 * 1000; // 1 minute cache for raw provider calls
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes cache for raw provider calls
+const PROCESSED_CACHE_TTL_MS = 3 * 60 * 1000; // 3 minutes cache for tier pricing results
 
 interface PriceLine {
   provider: '5sim' | 'herosms';
@@ -32,13 +34,44 @@ export async function GET() {
   try {
     const now = Date.now();
     
+    // 1. Resolve user tier & role first to check processed cache
+    const session = await auth();
+    let userTier = 'BRONZE';
+    let userRole = 'USER';
+
+    if (session?.user?.email) {
+      const dbUser = await prisma.user.findUnique({
+        where: { email: session.user.email },
+        select: { role: true, tierLevel: true }
+      });
+      if (dbUser) {
+        userTier = dbUser.tierLevel;
+        userRole = dbUser.role;
+      }
+    }
+
+    const cacheKey = `${userRole}_${userTier}`;
+    if (!globalThis.cachedProcessedPricing) {
+      globalThis.cachedProcessedPricing = new Map();
+    }
+    const cachedProcessed = globalThis.cachedProcessedPricing.get(cacheKey);
+    if (cachedProcessed && (now - cachedProcessed.timestamp < PROCESSED_CACHE_TTL_MS)) {
+      return NextResponse.json(cachedProcessed.data, {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        }
+      });
+    }
+
     // Initialize global cache variables if they don't exist
     if (globalThis.cachedRawPrices === undefined) {
       globalThis.cachedRawPrices = null;
       globalThis.lastFetchTime = 0;
     }
 
-    // 1. Fetch raw prices (either from global raw cache or live APIs)
+    // 2. Fetch raw prices (either from global raw cache or live APIs)
     let rawPrices5sim: any = {};
     let rawPricesHerosms: any = {};
     let exchangeRate = 50.0;
@@ -96,22 +129,6 @@ export async function GET() {
         exchangeRate
       };
       globalThis.lastFetchTime = now;
-    }
-
-    // 2. Resolve current user's specific tier margin
-    const session = await auth();
-    let userTier = 'BRONZE';
-    let userRole = 'USER';
-
-    if (session?.user?.email) {
-      const dbUser = await prisma.user.findUnique({
-        where: { email: session.user.email },
-        select: { role: true, tierLevel: true }
-      });
-      if (dbUser) {
-        userTier = dbUser.tierLevel;
-        userRole = dbUser.role;
-      }
     }
 
     const globalMargin = await ECCEngine.getGlobalMargin();
@@ -305,6 +322,10 @@ export async function GET() {
       countries: Array.from(countriesMap.values()).sort((a, b) => b.count - a.count).slice(0, 250),
       detailedPricing: formattedData
     };
+
+    if (globalThis.cachedProcessedPricing) {
+      globalThis.cachedProcessedPricing.set(cacheKey, { timestamp: now, data: result });
+    }
 
     return NextResponse.json(result, {
       headers: {
