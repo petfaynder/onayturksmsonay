@@ -33,17 +33,26 @@ function getGoogleFaviconUrl(name: string): string {
   return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 }
 
+const LOCAL_SERVICES = new Set([
+  '1win', '1xbet', 'azar', 'bigolive', 'getir',
+  'hepsiburadacom', 'letgo', 'papara', 'sahibinden',
+  'tosla', 'trendyol', 'yemeksepeti'
+]);
+
 // Stage tracker: 0 = local, 1 = simpleicons, 2 = google favicons, 3 = error
 type Stage = 0 | 1 | 2 | 3;
 
 export default function AppLogo({ name, className = "h-10 w-10" }: AppLogoProps) {
   const cleanName = name.toLowerCase().trim();
-  const [stage, setStage] = useState<Stage>(0);
+  const hasLocal = LOCAL_SERVICES.has(cleanName);
+  const initialStage: Stage = hasLocal ? 0 : 1;
+
+  const [stage, setStage] = useState<Stage>(initialStage);
 
   // Reset when name changes
   useEffect(() => {
-    setStage(0);
-  }, [name, cleanName]);
+    setStage(hasLocal ? 0 : 1);
+  }, [name, cleanName, hasLocal]);
 
   const getSrc = (s: Stage): string => {
     if (s === 0) return `/services/${cleanName}.svg`;
