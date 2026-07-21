@@ -110,22 +110,24 @@ export async function POST(req: Request) {
 
     // 5. Compile Available Lines with VIP Tier discounts
     const lines: PriceLine[] = [];
-    const tierDiscounts: Record<string, number> = {
-      BRONZE: 0,
-      SILVER: 0.02,
-      GOLD: 0.04,
-      PLATINUM: 0.06
+    const userMarginOverride = await ECCEngine.getTierMargin(user.role, user.tierLevel);
+
+    const getMarginForUser = (baseMargin: number) => {
+      if (userMarginOverride < globalMargin && globalMargin > 0) {
+        return +(baseMargin * (userMarginOverride / globalMargin)).toFixed(2);
+      }
+      return baseMargin;
     };
-    const discount = tierDiscounts[user.tierLevel] || 0;
 
     // --- 5SIM LINE ---
     const countryData5sim = rawPrices5sim[country]?.[product];
     if (fiveSimDb && countryData5sim) {
       for (const [operator, data] of Object.entries(countryData5sim as Record<string, any>)) {
         if (data && typeof data.count === 'number' && data.count > 0 && typeof data.cost === 'number') {
-          const margin = dbService.margin5sim ?? dbCountry.margin5sim ?? globalMargin;
+          const baseMargin = dbService.margin5sim ?? dbCountry.margin5sim ?? globalMargin;
+          const margin = getMarginForUser(baseMargin);
           const costTry = data.cost * exchangeRate;
-          const sellTry = costTry * (1 + (margin / 100)) * (1 - discount);
+          const sellTry = costTry * (1 + (margin / 100));
           const profitTry = sellTry - costTry;
 
           lines.push({
@@ -145,9 +147,10 @@ export async function POST(req: Request) {
     if (heroSmsDb && rawPricesHerosms[heroCountryId]?.[heroServiceCode]) {
       const heroProduct = rawPricesHerosms[heroCountryId][heroServiceCode];
       const processHeroItem = (op: string, cost: number, count: number) => {
-        const margin = dbService.marginHerosms ?? dbCountry.marginHerosms ?? globalMargin;
+        const baseMargin = dbService.marginHerosms ?? dbCountry.marginHerosms ?? globalMargin;
+        const margin = getMarginForUser(baseMargin);
         const costTry = cost * exchangeRate;
-        const sellTry = costTry * (1 + (margin / 100)) * (1 - discount);
+        const sellTry = costTry * (1 + (margin / 100));
         const profitTry = sellTry - costTry;
 
         lines.push({
