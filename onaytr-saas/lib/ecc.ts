@@ -127,9 +127,6 @@ export class ECCEngine {
    */
   public static async getTierDiscount(role: string, tier: string): Promise<number> {
     try {
-      if (role === 'ADMIN') {
-        return -1; // Admin gets at cost (100% discount off margin)
-      }
       if (role === 'RESELLER') {
         const setting = await prisma.systemSetting.findUnique({
           where: { key: 'TIER_RESELLER_MARGIN' }
@@ -152,7 +149,7 @@ export class ECCEngine {
         case 'SILVER': return 5;
         case 'BRONZE':
         default:
-          return 0; // Default 0% discount for Bronze
+          return 0; // Default 0% discount for Bronze & Admin
       }
     } catch (e) {
       console.error("ECC Engine: Failed to resolve tier discount:", e);
@@ -164,10 +161,6 @@ export class ECCEngine {
    * Calculates final sell price in TRY given raw cost in TRY, base service margin %, and tier discount %
    */
   public static calculateFinalPrice(costTry: number, baseMargin: number, discountPercent: number): number {
-    if (discountPercent === -1) {
-      // Admin at cost
-      return costTry;
-    }
     const baseSellPrice = costTry * (1 + (baseMargin / 100));
     const finalSellPrice = baseSellPrice * (1 - (discountPercent / 100));
     return finalSellPrice;
