@@ -122,21 +122,21 @@ export class ECCEngine {
   }
 
   /**
-   * Resolves the margin percentage for a user based on their role and tier level.
+   * Resolves the tier discount percentage for a user based on their role and tier level.
+   * Bronze: 0%, Silver: 5%, Gold: 10%, Platinum: 15%, Reseller: 20%
    */
-  public static async getTierMargin(role: string, tier: string): Promise<number> {
+  public static async getTierDiscount(role: string, tier: string): Promise<number> {
     try {
       if (role === 'ADMIN') {
-        return 0; // Admins get at cost
+        return -1; // Admin gets at cost (100% discount off margin)
       }
       if (role === 'RESELLER') {
         const setting = await prisma.systemSetting.findUnique({
           where: { key: 'TIER_RESELLER_MARGIN' }
         });
-        return setting ? parseFloat(setting.value) : 25; // default 25%
+        return setting ? parseFloat(setting.value) : 20; // default 20% discount
       }
 
-      // Check user tier
       const key = `TIER_${tier.toUpperCase()}_MARGIN`;
       const setting = await prisma.systemSetting.findUnique({
         where: { key }
@@ -146,17 +146,35 @@ export class ECCEngine {
         return parseFloat(setting.value);
       }
 
-      // Fallbacks if setting doesn't exist
       switch (tier.toUpperCase()) {
-        case 'GOLD': return 30;
-        case 'SILVER': return 40;
+        case 'PLATINUM': return 15;
+        case 'GOLD': return 10;
+        case 'SILVER': return 5;
         case 'BRONZE':
         default:
-          return await this.getGlobalMargin(); // Fallback to global margin
+          return 0; // Default 0% discount for Bronze
       }
     } catch (e) {
-      console.error("ECC Engine: Failed to resolve tier margin:", e);
-      return await this.getGlobalMargin();
+      console.error("ECC Engine: Failed to resolve tier discount:", e);
+      return 0;
     }
+  }
+
+  /**
+   * Calculates final sell price in TRY given raw cost in TRY, base service margin %, and tier discount %
+   */
+  public static calculateFinalPrice(costTry: number, baseMargin: number, discountPercent: number): number {
+    if (discountPercent === -1) {
+      // Admin at cost
+      return costTry;
+    }
+    const baseSellPrice = costTry * (1 + (baseMargin / 100));
+    const finalSellPrice = baseSellPrice * (1 - (discountPercent / 100));
+    return finalSellPrice;
+  }
+
+  // Deprecated helper kept for backwards compatibility
+  public static async getTierMargin(role: string, tier: string): Promise<number> {
+    return this.getTierDiscount(role, tier);
   }
 }

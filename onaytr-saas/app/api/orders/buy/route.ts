@@ -110,14 +110,7 @@ export async function POST(req: Request) {
 
     // 5. Compile Available Lines with VIP Tier discounts
     const lines: PriceLine[] = [];
-    const userMarginOverride = await ECCEngine.getTierMargin(user.role, user.tierLevel);
-
-    const getMarginForUser = (baseMargin: number) => {
-      if (userMarginOverride < globalMargin && globalMargin > 0) {
-        return +(baseMargin * (userMarginOverride / globalMargin)).toFixed(2);
-      }
-      return baseMargin;
-    };
+    const userTierDiscount = await ECCEngine.getTierDiscount(user.role, user.tierLevel);
 
     // --- 5SIM LINE ---
     const countryData5sim = rawPrices5sim[country]?.[product];
@@ -125,9 +118,8 @@ export async function POST(req: Request) {
       for (const [operator, data] of Object.entries(countryData5sim as Record<string, any>)) {
         if (data && typeof data.count === 'number' && data.count > 0 && typeof data.cost === 'number') {
           const baseMargin = dbService.margin5sim ?? dbCountry.margin5sim ?? globalMargin;
-          const margin = getMarginForUser(baseMargin);
           const costTry = data.cost * exchangeRate;
-          const sellTry = costTry * (1 + (margin / 100));
+          const sellTry = ECCEngine.calculateFinalPrice(costTry, baseMargin, userTierDiscount);
           const profitTry = sellTry - costTry;
 
           lines.push({
@@ -148,9 +140,8 @@ export async function POST(req: Request) {
       const heroProduct = rawPricesHerosms[heroCountryId][heroServiceCode];
       const processHeroItem = (op: string, cost: number, count: number) => {
         const baseMargin = dbService.marginHerosms ?? dbCountry.marginHerosms ?? globalMargin;
-        const margin = getMarginForUser(baseMargin);
         const costTry = cost * exchangeRate;
-        const sellTry = costTry * (1 + (margin / 100));
+        const sellTry = ECCEngine.calculateFinalPrice(costTry, baseMargin, userTierDiscount);
         const profitTry = sellTry - costTry;
 
         lines.push({

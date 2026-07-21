@@ -83,11 +83,11 @@ export default function SettingsForm({
     API_RATE_LIMIT_USER: initialSettings['API_RATE_LIMIT_USER'] || '60',
     API_RATE_LIMIT_RESELLER: initialSettings['API_RATE_LIMIT_RESELLER'] || '120',
 
-    // Tier Margins
-    TIER_BRONZE_MARGIN: initialSettings['TIER_BRONZE_MARGIN'] || '50',
-    TIER_SILVER_MARGIN: initialSettings['TIER_SILVER_MARGIN'] || '40',
-    TIER_GOLD_MARGIN: initialSettings['TIER_GOLD_MARGIN'] || '30',
-    TIER_RESELLER_MARGIN: initialSettings['TIER_RESELLER_MARGIN'] || '25',
+    // Tier Discounts (% Discount off retail sell price)
+    TIER_BRONZE_MARGIN: initialSettings['TIER_BRONZE_MARGIN'] || '0',
+    TIER_SILVER_MARGIN: initialSettings['TIER_SILVER_MARGIN'] || '5',
+    TIER_GOLD_MARGIN: initialSettings['TIER_GOLD_MARGIN'] || '10',
+    TIER_RESELLER_MARGIN: initialSettings['TIER_RESELLER_MARGIN'] || '20',
 
     // Tier Upgrade Thresholds
     TIER_SILVER_SPEND: initialSettings['TIER_SILVER_SPEND'] || '1000',
@@ -832,47 +832,48 @@ export default function SettingsForm({
                 </div>
               </div>
 
-              {/* Üye Seviyeleri ve Kâr Oranları */}
+              {/* Üye Seviyeleri ve İndirim Oranları */}
               <div className="bg-white/40 border border-slate-100 p-5 rounded-2xl space-y-4 pt-4 mt-6">
-                <h3 className="font-extrabold text-emerald-800 text-sm uppercase tracking-wider border-b pb-2">Kullanıcı Kademe (Tier) Kâr Yüzdeleri</h3>
+                <h3 className="font-extrabold text-emerald-800 text-sm uppercase tracking-wider border-b pb-2">Kullanıcı Kademe (Tier) İndirim Yüzdeleri</h3>
+                <p className="text-xs text-slate-500 font-medium">Servislerin kârlı satış fiyatı üzerinden kademelere özel uygulanacak indirim yüzdesidir (Örn: Servis %200 kârlı fiyattayken %5 veya %10 indirim uygulanır).</p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-2">Bronze Margin (%)</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-2">Bronze İndirimi (%)</label>
                     <input 
                       type="number" 
                       value={settings.TIER_BRONZE_MARGIN}
                       onChange={(e) => handleSettingChange('TIER_BRONZE_MARGIN', e.target.value)}
-                      placeholder="50"
+                      placeholder="0"
                       className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-emerald-450 rounded-lg text-slate-800 outline-none shadow-sm text-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-2">Silver Margin (%)</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-2">Silver İndirimi (%)</label>
                     <input 
                       type="number" 
                       value={settings.TIER_SILVER_MARGIN}
                       onChange={(e) => handleSettingChange('TIER_SILVER_MARGIN', e.target.value)}
-                      placeholder="40"
+                      placeholder="5"
                       className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-emerald-450 rounded-lg text-slate-800 outline-none shadow-sm text-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-2">Gold Margin (%)</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-2">Gold İndirimi (%)</label>
                     <input 
                       type="number" 
                       value={settings.TIER_GOLD_MARGIN}
                       onChange={(e) => handleSettingChange('TIER_GOLD_MARGIN', e.target.value)}
-                      placeholder="30"
+                      placeholder="10"
                       className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-emerald-450 rounded-lg text-slate-800 outline-none shadow-sm text-sm"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-2">Reseller Margin (%)</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-2">Reseller İndirimi (%)</label>
                     <input 
                       type="number" 
                       value={settings.TIER_RESELLER_MARGIN}
                       onChange={(e) => handleSettingChange('TIER_RESELLER_MARGIN', e.target.value)}
-                      placeholder="25"
+                      placeholder="20"
                       className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-emerald-450 rounded-lg text-slate-800 outline-none shadow-sm text-sm"
                     />
                   </div>

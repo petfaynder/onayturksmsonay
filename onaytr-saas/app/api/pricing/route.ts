@@ -115,15 +115,7 @@ export async function GET() {
     }
 
     const globalMargin = await ECCEngine.getGlobalMargin();
-    const userMarginOverride = await ECCEngine.getTierMargin(userRole, userTier);
-
-    // Scaling factor helper for user tier discounts
-    const getMarginForUser = (baseMargin: number) => {
-      if (userMarginOverride < globalMargin && globalMargin > 0) {
-        return +(baseMargin * (userMarginOverride / globalMargin)).toFixed(2);
-      }
-      return baseMargin;
-    };
+    const userTierDiscount = await ECCEngine.getTierDiscount(userRole, userTier);
 
     // 3. Process through ECC Engine and Filter by Active DB Settings
     const forceProviderSetting = await prisma.systemSetting.findFirst({
@@ -197,10 +189,8 @@ export async function GET() {
           for (const [operator, data] of Object.entries(operators5sim as Record<string, any>)) {
             if (data && typeof data.count === 'number' && data.count > 0 && typeof data.cost === 'number') {
               const baseMargin = dbService.margin5sim ?? dbCountry.margin5sim ?? globalMargin;
-              const margin = getMarginForUser(baseMargin);
-              
               const costTry = data.cost * exchangeRate;
-              const sellTry = costTry * (1 + (margin / 100));
+              const sellTry = ECCEngine.calculateFinalPrice(costTry, baseMargin, userTierDiscount);
               const profitTry = sellTry - costTry;
 
               lines.push({
@@ -223,10 +213,8 @@ export async function GET() {
           for (const op of heroOperators) {
             if (op.count > 0) {
               const baseMargin = dbService.marginHerosms ?? dbCountry.marginHerosms ?? globalMargin;
-              const margin = getMarginForUser(baseMargin);
-
               const costTry = op.cost * exchangeRate;
-              const sellTry = costTry * (1 + (margin / 100));
+              const sellTry = ECCEngine.calculateFinalPrice(costTry, baseMargin, userTierDiscount);
               const profitTry = sellTry - costTry;
 
               lines.push({
