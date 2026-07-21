@@ -1,0 +1,508 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ─── Premium Light Theme Design System (Inspiration from Mockup) ─────────── */
+:root {
+  /* Colors */
+  --primary:           #4648D4;  /* Indigo primary */
+  --secondary:         #712AE2;  /* Violet secondary */
+  --tertiary:          #B90538;  /* Rose tertiary */
+  
+  --bg-color:          #F8F9FF;  /* Ice-blue base background */
+  --on-background:     #0B1C30;  /* Slate dark text */
+  --on-surface-variant:#464554;  /* Secondary slate text */
+  
+  --surface-low:       #EFF4FF;  /* Very soft blue/gray container background */
+  --surface-high:      #DCE9FF;
+  --surface-lowest:    #FFFFFF;
+  --outline-variant:   #C7C4D7;
+
+  --border:            rgba(70, 72, 212, 0.08);
+
+  /* Tailwind CSS variables mapping */
+  --background: 228 100% 99%;
+  --foreground: 213 63% 12%;
+  --primary-css: 239 64% 55%;
+  --border-css: 228 32% 93%;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   DARK MODE — Comprehensive Global Overrides
+   ════════════════════════════════════════════════════════════════════════════ */
+
+html.dark {
+  --bg-color:          #0D1117;
+  --on-background:     #E6EDF3;
+  --on-surface-variant:#8B949E;
+  --surface-low:       #161B22;
+  --surface-high:      #21262D;
+  --surface-lowest:    #0D1117;
+  --outline-variant:   #30363D;
+  --border:            rgba(99, 110, 123, 0.15);
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0D1117;
+  color: #E6EDF3;
+}
+
+/* ── Background Colors ──────────────────────────────────────────────────── */
+
+/* Mesh blobs behind pages */
+html.dark .mesh-bg > div {
+  opacity: 0.12 !important;
+  mix-blend-mode: screen !important;
+}
+
+/* Generic white / near-white surfaces → dark */
+html.dark .bg-white,
+html.dark .bg-white\/40,
+html.dark .bg-white\/50,
+html.dark .bg-white\/60,
+html.dark .bg-white\/70,
+html.dark .bg-white\/80 {
+  background-color: rgba(22, 27, 34, 0.85) !important;
+}
+
+html.dark .bg-\[#f6f8fa\] {
+  background-color: #161B22 !important;
+}
+
+html.dark .bg-\[#ffffff\] {
+  background-color: #21262D !important;
+}
+
+html.dark .bg-\[#fafafa\] {
+  background-color: #0D1117 !important;
+}
+
+/* Slate light backgrounds */
+html.dark .bg-slate-50,
+html.dark .bg-slate-100 {
+  background-color: #161B22 !important;
+}
+
+html.dark .bg-slate-50\/50 {
+  background-color: rgba(22, 27, 34, 0.5) !important;
+}
+
+/* Teal tinted light backgrounds */
+html.dark .bg-teal-50,
+html.dark .bg-teal-50\/50,
+html.dark .bg-teal-50\/30,
+html.dark .bg-teal-100,
+html.dark .bg-teal-100\/80 {
+  background-color: rgba(13, 148, 136, 0.1) !important;
+}
+
+/* Emerald tinted light backgrounds */
+html.dark .bg-emerald-50,
+html.dark .bg-emerald-100,
+html.dark .bg-emerald-100\/80 {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Blue tinted light backgrounds */
+html.dark .bg-blue-100,
+html.dark .bg-blue-100\/80 {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Rose tinted light backgrounds */
+html.dark .bg-rose-50,
+html.dark .bg-rose-50\/80,
+html.dark .bg-rose-100,
+html.dark .bg-rose-100\/80 {
+  background-color: rgba(244, 63, 94, 0.1) !important;
+}
+
+/* Gradient backgrounds that are light */
+html.dark .bg-gradient-to-br.from-teal-50,
+html.dark .bg-gradient-to-b.from-teal-50\/30 {
+  --tw-gradient-from: rgba(13, 148, 136, 0.08) !important;
+  --tw-gradient-to: transparent !important;
+}
+
+html.dark .bg-gradient-to-r.from-emerald-50 {
+  --tw-gradient-from: rgba(16, 185, 129, 0.08) !important;
+}
+
+/* ── Text Colors ────────────────────────────────────────────────────────── */
+
+html.dark .text-slate-800,
+html.dark .text-slate-900 {
+  color: #E6EDF3 !important;
+}
+
+html.dark .text-slate-700 {
+  color: #C9D1D9 !important;
+}
+
+html.dark .text-slate-600 {
+  color: #B1BAC4 !important;
+}
+
+html.dark .text-slate-500 {
+  color: #8B949E !important;
+}
+
+html.dark .text-slate-400 {
+  color: #6E7681 !important;
+}
+
+html.dark .text-slate-300 {
+  color: #484F58 !important;
+}
+
+/* Dark mode color overrides using custom utility classes */
+html.dark .dark-text-light {
+  color: #E6EDF3 !important;
+}
+
+html.dark .dark-text-muted {
+  color: #8B949E !important;
+}
+
+/* Teal text in dark mode — keep vibrant but adjust */
+html.dark .text-teal-900 {
+  color: #5EEAD4 !important;
+}
+
+html.dark .text-teal-700 {
+  color: #2DD4BF !important;
+}
+
+html.dark .text-teal-600 {
+  color: #14B8A6 !important;
+}
+
+html.dark .text-emerald-700 {
+  color: #34D399 !important;
+}
+
+html.dark .text-emerald-600 {
+  color: #10B981 !important;
+}
+
+/* ── Borders ────────────────────────────────────────────────────────────── */
+
+html.dark .border-white {
+  border-color: rgba(48, 54, 61, 0.8) !important;
+}
+
+html.dark .dark-border {
+  border-color: #30363D !important;
+}
+
+html.dark .border-slate-100,
+html.dark .border-slate-200 {
+  border-color: #21262D !important;
+}
+
+html.dark .border-teal-100,
+html.dark .border-teal-200,
+html.dark .border-teal-300 {
+  border-color: rgba(13, 148, 136, 0.25) !important;
+}
+
+html.dark .border-emerald-200 {
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+html.dark .border-rose-200 {
+  border-color: rgba(244, 63, 94, 0.2) !important;
+}
+
+/* ── Shadows ────────────────────────────────────────────────────────────── */
+
+html.dark .shadow-sm,
+html.dark .shadow-md,
+html.dark .shadow-lg,
+html.dark .shadow-xl {
+  --tw-shadow-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ── Glass Panels (dashboard columns, cards) ────────────────────────────── */
+
+html.dark .glass-panel {
+  background: rgba(22, 27, 34, 0.9) !important;
+  border-color: #30363D !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark .glass-panel-header {
+  background: rgba(13, 17, 23, 0.7) !important;
+  border-color: #21262D !important;
+}
+
+html.dark .glass-premium {
+  background: rgba(22, 27, 34, 0.75) !important;
+  border-color: rgba(48, 54, 61, 0.6) !important;
+}
+
+/* ── Inputs & Form Elements ─────────────────────────────────────────────── */
+
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #0D1117 !important;
+  border-color: #30363D !important;
+  color: #E6EDF3 !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #484F58 !important;
+}
+
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  border-color: #1f6feb !important;
+  background-color: #0D1117 !important;
+}
+
+/* ── Dashboard specific ─────────────────────────────────────────────────── */
+
+/* App grid buttons */
+html.dark .dark-card {
+  background-color: rgba(33, 38, 45, 0.7) !important;
+}
+
+/* ── Scrollbar (dark variant) ───────────────────────────────────────────── */
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(139, 148, 158, 0.25) !important;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 148, 158, 0.45) !important;
+}
+
+/* ── Login & Auth pages ─────────────────────────────────────────────────── */
+
+html.dark .glass-panel.p-8,
+html.dark .glass-panel.p-10 {
+  background: rgba(22, 27, 34, 0.92) !important;
+}
+
+/* ── Dark mode badge backgrounds ────────────────────────────────────────── */
+html.dark .dark-badge-warm {
+  background-color: rgba(255, 248, 235, 0.08) !important;
+}
+
+html.dark .dark-badge-blue {
+  background-color: rgba(56, 132, 244, 0.12) !important;
+}
+
+html.dark .dark-badge-purple {
+  background-color: rgba(130, 80, 223, 0.12) !important;
+}
+
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--on-background);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ─── Custom Mesh and Grid Backgrounds ───────────────────────────────────── */
+.bg-mesh-premium {
+  background-color: #F8F9FF;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(70, 72, 212, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(113, 42, 226, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(185, 5, 56, 0.02) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(70, 72, 212, 0.05) 0px, transparent 50%);
+}
+
+.micro-grid {
+  background-image: radial-gradient(rgba(70, 72, 212, 0.06) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+/* Premium Blurry Glassmorphism Card */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+}
+
+/* Hover glow borders */
+.border-glow {
+  transition: all 0.3s ease;
+}
+.border-glow:hover {
+  border-color: rgba(70, 72, 212, 0.25);
+  box-shadow: 0 0 24px rgba(70, 72, 212, 0.08);
+}
+
+/* Gradient Text Wrapper */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
+}
+.animate-float {
+  animation: float 5.5s ease-in-out infinite;
+}
+
+@keyframes pulse-node {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+.network-node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--primary);
+  animation: pulse-node 3s infinite;
+}
+
+/* Horizontal Ticker / Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+  display: flex;
+  width: max-content;
+}
+.marquee-wrap {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Staggered load animation */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(70, 72, 212, 0.15);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(70, 72, 212, 0.35);
+}
+
+/* ─── Dashboard Redesign Animations & Utilities ──────────────────────────── */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(70, 72, 212, 0.4);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 15px rgba(70, 72, 212, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(70, 72, 212, 0);
+  }
+}
+.animate-radar-pulse {
+  animation: radar-pulse 2s infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    border-color: rgba(70, 72, 212, 0.2);
+    box-shadow: 0 0 10px rgba(70, 72, 212, 0.05);
+  }
+  50% {
+    border-color: rgba(113, 42, 226, 0.4);
+    box-shadow: 0 0 20px rgba(113, 42, 226, 0.15);
+  }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 3s infinite;
+}
+
+/* Slide in animation */
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in {
+  animation: slide-in-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glassmorphism dashboard card overrides */
+.glass-premium-dark {
+  background: rgba(30, 41, 59, 0.45) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5) !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(70, 72, 212, 0.2);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(70, 72, 212, 0.4);
+}
+

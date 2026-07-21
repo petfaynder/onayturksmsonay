@@ -1,0 +1,272 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  passwordHash   String?
+  googleId       String?   @unique
+  balance        Float     @default(0.0)
+  role           UserRole  @default(USER)
+  apiToken       String?   @unique
+  webhookUrl     String?
+  autoFallback   Boolean   @default(true)
+  isBanned       Boolean   @default(false)
+  referralCode   String?   @unique
+  referredById   String?
+  telegramChatId String?
+  twoFASecret    String?
+  twoFAEnabled   Boolean   @default(false)
+  tierLevel      String    @default("BRONZE")
+  monthlySpend   Float     @default(0.0)
+  adminNote      String?   @db.Text
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  orders           Order[]
+  transactions     Transaction[]
+  tickets          Ticket[]
+  ticketReplies    TicketReply[]
+  referralEarnings ReferralEarning[] @relation("EarnerUser")
+  referredUsers    User[]            @relation("ReferredUsers")
+  referredBy       User?             @relation("ReferredUsers", fields: [referredById], references: [id])
+  favorites        UserFavorite[]
+  recentServices   UserRecentService[]
+}
+
+enum UserRole {
+  USER
+  RESELLER
+  ADMIN
+}
+
+model ReferralEarning {
+  id         String   @id @default(uuid())
+  earnerId   String
+  referredId String
+  orderId    String?
+  amount     Float
+  createdAt  DateTime @default(now())
+
+  earner     User     @relation("EarnerUser", fields: [earnerId], references: [id])
+}
+
+model Coupon {
+  id          String    @id @default(uuid())
+  code        String    @unique
+  type        String    @default("PERCENT")
+  value       Float
+  minAmount   Float     @default(0.0)
+  maxUses     Int?
+  usedCount   Int       @default(0)
+  expiresAt   DateTime?
+  isActive    Boolean   @default(true)
+  description String?
+  createdAt   DateTime  @default(now())
+
+  usages      CouponUsage[]
+}
+
+model CouponUsage {
+  id        String   @id @default(uuid())
+  couponId  String
+  userId    String
+  amount    Float
+  createdAt DateTime @default(now())
+
+  coupon    Coupon   @relation(fields: [couponId], references: [id])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  adminId    String
+  adminEmail String
+  action     String
+  targetType String?
+  targetId   String?
+  details    String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  @@index([adminId])
+  @@index([createdAt])
+}
+
+model ApiProvider {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  apiKey    String   @db.Text
+  isActive  Boolean  @default(true)
+  priority  Int      @default(1)
+  balance   Float    @default(0.0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders    Order[]
+}
+
+model Service {
+  id            String   @id @default(uuid())
+  providerCode  String   @unique
+  name          String
+  logoUrl       String?
+  isActive      Boolean  @default(true)
+  margin5sim    Float?
+  marginHerosms Float?
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Country {
+  id            String   @id @default(uuid())
+  providerCode  String   @unique
+  name          String
+  flagCode      String?
+  isActive      Boolean  @default(true)
+  margin5sim    Float?
+  marginHerosms Float?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ProviderHealthLog {
+  id           String   @id @default(uuid())
+  providerName String   @db.VarChar(50)
+  countryCode  String   @db.VarChar(50)
+  serviceCode  String   @db.VarChar(50)
+  operatorCode String?  @db.VarChar(50)
+  isSuccess    Boolean
+  errorType    String?  @db.VarChar(50)
+  createdAt    DateTime @default(now())
+
+  @@index([providerName, countryCode, serviceCode])
+  @@index([createdAt])
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  userId          String
+  providerId      String
+  providerOrderId String      @unique
+  serviceCode     String
+  countryCode     String
+  operatorCode    String?
+  phoneNumber     String
+  smsCode         String?     @db.Text
+  costPrice       Float
+  sellPrice       Float
+  status          OrderStatus @default(PENDING)
+  type            String      @default("ACTIVATION")
+  expiresAt       DateTime
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user     User        @relation(fields: [userId], references: [id])
+  provider ApiProvider @relation(fields: [providerId], references: [id])
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+model Transaction {
+  id          String          @id @default(uuid())
+  userId      String
+  amount      Float
+  type        TransactionType
+  description String?
+  referenceId String?
+  createdAt   DateTime        @default(now())
+
+  user        User            @relation(fields: [userId], references: [id])
+}
+
+enum TransactionType {
+  DEPOSIT
+  PURCHASE
+  REFUND
+  BONUS
+  ADMIN_ADJUSTMENT
+  REFERRAL_COMMISSION
+  COUPON
+}
+
+model Ticket {
+  id        String       @id @default(uuid())
+  userId    String
+  subject   String
+  message   String       @db.Text
+  status    TicketStatus @default(OPEN)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  user      User         @relation(fields: [userId], references: [id])
+  replies   TicketReply[]
+}
+
+model TicketReply {
+  id        String   @id @default(uuid())
+  ticketId  String
+  userId    String
+  message   String   @db.Text
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+model SystemSetting {
+  key         String   @id
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+model UserFavorite {
+  id          String   @id @default(uuid())
+  userId      String   @db.VarChar(36)
+  serviceCode String   @db.VarChar(50)
+  countryCode String   @db.VarChar(50)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, serviceCode, countryCode])
+}
+
+model UserRecentService {
+  id          String   @id @default(uuid())
+  userId      String   @db.VarChar(36)
+  serviceCode String   @db.VarChar(50)
+  countryCode String   @db.VarChar(50)
+  usedAt      DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, usedAt])
+}
+
+model Announcement {
+  id        String   @id @default(uuid())
+  title     String
+  content   String   @db.Text
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

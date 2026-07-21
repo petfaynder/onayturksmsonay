@@ -1,0 +1,40 @@
+/**
+ * Dark Mode – tek kaynak (toggle + sistem tercihi)
+ * Optimizasyon: rAF, 300ms cooldown, birincil tema Light
+ */
+(function() {
+    var COOLDOWN_MS = 300;
+    var lastToggle = 0;
+
+    window.toggleDarkMode = function() {
+        var now = Date.now();
+        if (now - lastToggle < COOLDOWN_MS) return;
+        lastToggle = now;
+
+        requestAnimationFrame(function() {
+            var html = document.documentElement;
+            var current = html.getAttribute('data-theme');
+            if (current === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    };
+
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                requestAnimationFrame(function() {
+                    if (e.matches) {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                    } else {
+                        document.documentElement.removeAttribute('data-theme');
+                    }
+                });
+            }
+        });
+    }
+})();

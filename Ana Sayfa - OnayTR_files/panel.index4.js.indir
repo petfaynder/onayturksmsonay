@@ -1,0 +1,109 @@
+$(function () {
+	$('#searchCategoryForm').on('submit', function(event){
+		event.preventDefault();
+	});
+	
+	$('#searchCountryForm').on('submit', function(event){
+		event.preventDefault();
+	});
+	
+	$('#searchPopularForm').on('submit', function(event){
+		event.preventDefault();
+	});
+	
+
+	
+	$('.searchCategory').on("keyup",function(){
+		var valueInput = $('.searchCategory').val().toLowerCase().trim();
+		var services = $(".serviceName");
+		
+		if(valueInput===""){
+			services.css('display', 'block');
+            $(".serviceName").each(function(){
+                $(this).removeClass("d-none");
+            });
+			return;
+		}
+		
+		for(var i = 0; i<services.length; i++){
+			let txt = services[i].innerHTML.toLowerCase().includes(valueInput);
+
+			if(txt){
+				services[i].style.display  = 'block!important';
+                $(services[i]).removeClass("d-none");
+			}else{
+				services[i].style.display  = 'none!important';
+                $(services[i]).addClass("d-none");
+			}
+		}
+	});
+	
+	
+	$('.searchCountry').on("keyup",function(){
+		var valueInput = $('.searchCountry').val().toLowerCase().trim();
+		var countries = $("#categoriesAll .service2");
+		if(valueInput===""){
+			countries.css('display', 'block');
+			return;
+		}
+		
+		for(var i = 0; i<countries.length; i++){
+			let txt = countries[i].getElementsByClassName('countryName')[0].innerHTML.toLowerCase().includes(valueInput);
+
+			if(txt){
+				countries[i].style.display  = 'block';
+			}else{
+				countries[i].style.display  = 'none';
+			}
+		}
+	});
+
+    $('input[type=radio][name=suggestion]').change(function() {
+        const modal = $("#orderModal");
+        let item;
+        if (this.value === 'suggestion') {
+            $('#selectCountry option').attr('disabled', true);
+            $('#selectCountry option[datasuggestion=1]').attr('disabled', false);
+            item = $('#selectCountry option[disabled!=disabled]').first();
+        } else if (this.value === 'suggestion_2') {
+            $('#selectCountry option').attr('disabled', true);
+            $('#selectCountry option[datasuggestion2=1]').attr('disabled', false);
+            item = $('#selectCountry option[disabled!=disabled]').first();
+        } else if (this.value === 'suggestion_3') {
+            $('#selectCountry option').attr('disabled', true);
+            $('#selectCountry option[datasuggestion3=1]').attr('disabled', false);
+            item = $('#selectCountry option[disabled!=disabled]').first();
+        }
+        else if (this.value === 'suggestion_4') {
+            $('#selectCountry option').attr('disabled', true);
+            $('#selectCountry option[datasuggestion4=1]').attr('disabled', false);
+            item = $('#selectCountry option[disabled!=disabled]').first();
+        }
+          else if (this.value === 'suggestion_5') {
+            $('#selectCountry option').attr('disabled', true);
+            $('#selectCountry option[datasuggestion5=1]').attr('disabled', false);
+            item = $('#selectCountry option[disabled!=disabled]').first();
+        }
+        else if (this.value === 'suggestion_6') {
+            $('#selectCountry option').attr('disabled', true);
+            $('#selectCountry option[datasuggestion6=1]').attr('disabled', false);
+            item = $('#selectCountry option[disabled!=disabled]').first();
+        }
+        else {
+            $('#selectCountry option').attr('disabled', false);
+            item = $('#selectCountry option').first();
+        }
+        $('#select2-selectCountry-container').text(item.text());
+
+        var index = item.val();
+        $("#servicePrice").val(modal.data("loading"));
+        $("#stockStatus").val(modal.data("loading"));
+        $.get("/api/getServiceDetails/" + index, function (rsp) {
+            var service = $.parseJSON(rsp);
+            $("#servicePrice").val(service.price + " " + modal.data("money-sign"));
+            $("#stockStatus").val(service.stock);
+        })
+    });
+	
+	
+});

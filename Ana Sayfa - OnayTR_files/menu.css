@@ -1,0 +1,468 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+}
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+
+.fa-2x {
+position: relative;
+display: table-cell;
+width: 60px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+color: #000;
+}
+.fa {
+position: relative;
+display: table-cell;
+width: 60px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+color: #000;
+}
+
+
+.fas-2x {
+position: relative;
+display: table-cell;
+width: 60px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+color: #000;
+}
+
+.main-menu:hover,nav.main-menu.expanded {
+width:180px;
+overflow:visible;
+}
+
+.main-menu {
+background:#F7F7F7;
+position:fixed;
+top:0;
+bottom:0;
+height:100%;
+left:0;
+width:60px;
+overflow:hidden;
+-webkit-transition:width .05s linear;
+transition:width .05s linear;
+-webkit-transform:translateZ(0) scale(1,1);
+z-index:1000;
+}
+
+.main-menu>ul {
+margin:7px 0;
+}
+
+.main-menu li {
+position:relative;
+display:block;
+width:180px;
+padding-bottom:20px;
+
+
+}
+
+.main-menu li>a {
+position:relative;
+display:table;
+border-collapse:collapse;
+border-spacing:0;
+color:#000;
+ font-family: arial;
+font-size: 14px;
+text-decoration:none;
+-webkit-transform:translateZ(0) scale(1,1);
+-webkit-transition:all .1s linear;
+transition:all .1s linear;
+  
+}
+
+.main-menu .nav-icon {
+position:relative;
+display:table-cell;
+width:60px;
+height:36px;
+text-align:center;
+vertical-align:middle;
+font-size:18px;
+}
+
+.main-menu .nav-text {
+position:relative;
+display:table-cell;
+vertical-align:middle;
+width:139px;
+  font-family: 'Titillium Web', sans-serif;
+padding-left: 10px;
+}
+
+.main-menu>ul.logout {
+position:fixed;
+left:0;
+bottom:0;
+}
+
+.no-touch .scrollable.hover {
+overflow-y:hidden;
+}
+
+.no-touch .scrollable.hover:hover {
+overflow-y:auto;
+overflow:visible;
+}
+
+a:hover,a:focus {
+text-decoration:none;
+}
+
+nav {
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+-o-user-select:none;
+user-select:none;
+}
+
+nav ul,nav li {
+outline:0;
+margin:0;
+padding:0;
+}
+.main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+color:#fff;
+background-color:#2867b2;
+}
+.area {
+float: left;
+background: #ededed;
+width: 100%;
+height: 100%;
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+}
+
+.user-panel {
+    float: left;
+    width: 100%;
+    color: #ccc;
+   padding: 10px 34px 12px 2px;
+}
+.user-online {
+    color: #26c281;
+}
+.user-img-circle {
+    background: #fff;
+    z-index: 1000;
+    position: inherit;
+    border: 1px solid rgba(52, 73, 94, 0.44);
+    padding: 2px;
+}
+.txtOnline {
+    color: #ccc;
+    font-size: 11px;
+}
+.user-panel .image img {
+    max-width: 100%;
+}
+.user-panel .image {
+    width: 35%;
+    max-width: 75px;
+	margin-bottom: 1000px;
+}
+.user-panel .info {
+    width: 50%;
+    margin-left: 11px;
+    margin-top: 6px;
+}
+.user-panel .info p {
+    margin: 5px 0;
+}
+
+.sidebar-userpic img {
+    margin: 2px 0px -2px 13px;
+    width: 90px;
+    border: 2px solid rgb(210, 214, 222);
+    border-radius: 50% 50% 50% 50%; }
+
+.sidebar-userpic-name {
+    font-size: 17px;
+    font-weight: bold;
+    color: #d2405c;
+	text-align:center;
+	 }
+.profile-usertitle-job {
+    color: #128c7e;
+    font-size: 12px;
+    margin-bottom: -11px;
+  
+	text-align:center;
+		}
+	
+	
+	
+	.darkerli
+{
+background-color:#ededed;
+text-transform:capitalize;  
+}
+
+.darkerlishadowdown
+{
+background-color:#ededed;
+text-transform:capitalize;  
+-webkit-box-shadow: inset 0px -4px 5px -4px rgba(50, 50, 50, 0.55);
+-moz-box-shadow:    inset 0px -4px 5px -4px rgba(50, 50, 50, 0.55);
+box-shadow:         inset 0px -4px 5px -4px rgba(50, 50, 50, 0.55);
+}
+	
+	.darkerlishadow
+{
+background-color:#ededed;
+text-transform:capitalize; 
+-webkit-box-shadow: inset 0px 5px 5px -4px rgba(50, 50, 50, 0.55);
+-moz-box-shadow:    inset 0px 5px 5px -4px rgba(50, 50, 50, 0.55);
+box-shadow:         inset 0px 5px 5px -4px rgba(50, 50, 50, 0.55);
+padding-top:10px;
+}
+	
+	
+	
+	.profile-usertitle-money {
+    color: #833ab4;
+    font-size: 20px;
+    margin-bottom: -25px;
+  padding-top:12px;
+	text-align:center;
+		}
+	
+@media only screen and (max-width:1024px) {
+	.fa-2x {
+position: relative;
+display: table-cell;
+width: 30px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+color: #000;
+}
+.fa {
+position: relative;
+display: table-cell;
+width: 30px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+color: #000;
+}
+
+
+.fas-2x {
+position: relative;
+display: table-cell;
+width: 30px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+color: #000;
+}
+
+.main-menu:hover,nav.main-menu.expanded {
+width:130px;
+overflow:visible;
+}
+
+.main-menu {
+background:#F7F7F7;
+opacity: 0.8;
+position:fixed;
+top:0;
+bottom:0;
+height:100%;
+left:0;
+width:30px;
+overflow:hidden;
+-webkit-transition:width .05s linear;
+transition:width .05s linear;
+-webkit-transform:translateZ(0) scale(1,1);
+z-index:1000;
+}
+
+.main-menu>ul {
+margin:7px 0;
+}
+
+.main-menu li {
+position:relative;
+display:block;
+width:130px;
+padding-bottom:20px;
+
+}
+
+.main-menu li>a {
+position:relative;
+display:table;
+border-collapse:collapse;
+border-spacing:0;
+color:#000;
+ font-family: arial;
+font-size: 14px;
+text-decoration:none;
+-webkit-transform:translateZ(0) scale(1,1);
+-webkit-transition:all .1s linear;
+transition:all .1s linear;
+  
+}
+
+.main-menu .nav-icon {
+position:relative;
+display:table-cell;
+width:60px;
+height:36px;
+text-align:center;
+vertical-align:middle;
+font-size:18px;
+}
+
+.main-menu .nav-text {
+position:relative;
+display:table-cell;
+vertical-align:middle;
+width:99px;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.main-menu>ul.logout {
+position:fixed;
+left:0;
+bottom:0;
+display:none;
+}
+
+.no-touch .scrollable.hover {
+overflow-y:hidden;
+}
+
+.no-touch .scrollable.hover:hover {
+overflow-y:auto;
+overflow:visible;
+}
+
+a:hover,a:focus {
+text-decoration:none;
+}
+
+nav {
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+-o-user-select:none;
+user-select:none;
+}
+
+nav ul,nav li {
+outline:0;
+margin:0;
+padding:0;
+}
+.main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+color:#fff;
+background-color:#2867b2
+}
+.area {
+float: left;
+background: #e2e2e2;
+width: 100%;
+height: 100%;
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+}
+
+.user-panel {
+    float: left;
+    width: 100%;
+    color: #ccc;
+  padding: 10px 34px 12px 2px;
+}
+.user-online {
+    color: #26c281;
+}
+.user-img-circle {
+    background: #fff;
+    z-index: 1000;
+    position: inherit;
+    border: 1px solid rgba(52, 73, 94, 0.44);
+    padding: 2px;
+}
+.txtOnline {
+    color: #ccc;
+    font-size: 11px;
+}
+.user-panel .image img {
+    max-width: 100%;
+}
+.user-panel .image {
+    width: 35%;
+    max-width: 75px;
+	margin-bottom: 1000px;
+}
+.user-panel .info {
+    width: 50%;
+    margin-left: 11px;
+    margin-top: 6px;
+}
+.user-panel .info p {
+    margin: 5px 0;
+}
+
+.sidebar-userpic img {
+  margin: 2px 0px 1px 11px;
+    width: 65px;
+    padding: 2px;
+    border: 2px solid rgb(210, 214, 222);
+    border-radius: 50% 50% 50% 50%;   }
+
+.sidebar-userpic-name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #d2405c;
+	text-align:center;
+
+	 }
+.profile-usertitle-job {
+    color: #128c7e;
+    font-size: 12px;
+    margin-bottom: -32px;
+	text-align:center;	} 
+	
+	
+	
+		.profile-usertitle-money {
+    color: #833ab4;
+    font-size: 17px;
+    margin-bottom: -27px;
+  padding-top:29px;
+	text-align:center;
+		}
+	}
+
+
+
+

@@ -1,0 +1,202 @@
+body {
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+main {
+    flex:1;
+}
+.swal2-container {
+    z-index: 10000!important;
+}
+.table {
+    margin-bottom: 0!important;
+}
+.t-area {
+    width: inherit;
+    height: 100px!important;
+    resize: none;
+}
+.container .w-100 {
+    word-break: break-word;
+}
+#dataTable_wrapper .col-sm-12.col-md-5 {
+    flex: 0;
+}
+
+.note-toolbar .note-btn {
+    background: #2c3e50!important;
+}
+#dataTable_wrapper .col-sm-12.col-md-7 {
+    display: flex;
+    max-width: 100%;
+    flex: 1;
+    justify-content: center;
+}
+.dataTables_filter {
+    float:right;
+}
+.fa-netflix {
+    background-image: url("../img/netflix.svg");
+    background-position: center;
+    background-size: 1.25rem;
+    background-repeat: no-repeat;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+.swal2-loading {
+    margin: 0!important;
+    width: auto!important;
+}
+.dataTables_paginate {
+    margin-top: 1rem!important;
+}
+.hide_spinner::-webkit-outer-spin-button,
+.hide_spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.service div {
+    cursor: pointer;
+    transition: box-shadow .5s;
+}
+.service div:hover {
+    box-shadow: 0 .5rem 1rem #34ace0!important;
+}
+@media only screen and (max-width: 750px) {
+    .nowrap-mobile {
+        white-space: nowrap;
+    }
+}
+.help-balloon{position:fixed;right:0.5rem;bottom:1rem;z-index:99}
+.help-balloon.active .help-inline .help-box{visibility:visible}
+.help-balloon .help-inline{position:relative}
+.help-balloon .help-inline .help-box{position:absolute;visibility:hidden;background:#41005f;color:#fff;padding:0.5rem 0.7rem;border-radius:1rem;bottom:80px;right:40px;width:15rem;height:4.5rem;}
+.help-balloon .help-inline .help-box:before{content:"";border-style:solid;border-width:16px 10px 10px 10px;border-color:#41005f transparent transparent transparent;position:absolute;bottom:-22px;right:13px}
+.help-balloon .help-inline .help-box .help-icon{border-radius:50%;width:3rem;height:3rem;font-size:2.3rem;background:#fff;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;color:#ee7633;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:0 1 auto}
+.help-balloon .help-inline .help-box .help-text{font-weight:300; font-size:0.8rem;}
+.help-balloon .help-inline .help-box .help-text strong{font-weight:600}
+.help-balloon .help-inline .help-box .close-button .help-balloon-close{position:absolute;right:1rem;top:1rem;font-size:.9rem;cursor:pointer}
+.help-balloon .help-inline .balloon-trigger{width:4.5rem;height:4.5rem;text-align:center;border-radius:50%;background:#fff;cursor:pointer;position:relative}
+.help-balloon .help-inline .balloon-trigger .balloon{background:#41005f;border-radius:50%;width:2.4rem;height:2.4rem;position:absolute;z-index:0}
+.help-balloon .help-inline .balloon-trigger .balloon:before{content:"";border-style:solid;border-width:10px 5px 5px 5px;border-color:#ee7633 transparent transparent transparent;position:absolute}
+.help-balloon .help-inline .balloon-trigger .balloon.balloon-1{top:0.5rem;left:0.6rem}
+.help-balloon .help-inline .balloon-trigger .balloon.balloon-1:before{bottom:-6px;-webkit-transform:rotate(45deg);transform:rotate(45deg);right:28px;border-top-color:#41005f}
+.help-balloon .help-inline .balloon-trigger .balloon.balloon-2{bottom:0.6rem;right:0.5rem;z-index:1;background:#ee7633;border:solid #fff .3rem}
+.help-balloon .help-inline .balloon-trigger .balloon.balloon-2:before{bottom:-7px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);right:-5px} .margin-left-md {margin-left: 0.7rem;}
+		.full-link {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 12rem;
+    height: 4rem;
+    opacity: 0;
+    text-indent: 200%;
+}
+		
+		.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;}
+		
+		.middle {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;}
+		
+		.relative {
+    position: relative;}
+		
+.fadeinbox {
+BORDER-RIGHT: red 2px solid; PADDING-RIGHT: 4px; BORDER-TOP: red 2px solid; PADDING-LEFT: 4px; FONT-SIZE: 11px; Z-INDEX: 100; LEFT: 0px; VISIBILITY: hidden; PADDING-BOTTOM: 4px; BORDER-LEFT: red 2px solid; WIDTH: 500px; PADDING-TOP: 4px; BORDER-BOTTOM: red 2px solid; FONT-FAMILY: Tahoma, Verdana, Arial, Helvetica, sans-serif; POSITION: absolute; TOP: -400px; BACKGROUND-COLOR: #f6f6f6
+}
+
+#selectCountry option.a⁶{
+	color:blue;
+}
+
+#selectCountry option.a⁷{
+	color:green;
+}
+
+#selectCountry option.a⁸{
+	color:purple;
+}
+
+#select2-selectCountry-results li[aria-disabled=true] {
+    display: none;
+}
+
+.durum-info {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.durum-info .durum-edit {
+    position: relative;
+    margin-right: 10px;
+}
+.durum-info .durum-edit .icon {
+    border: 2px solid #798bc2;
+    position: relative;
+    color: #686de3;
+    border-radius: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    font-size: 60px;
+}
+.durum-info .durum-edit .icon i {
+    position: absolute;
+    bottom: 5px;
+}
+.durum-info .durum-edit .durum-edit-link {
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    background: #686de3;
+    color: #fff;
+    position: absolute;
+    top: 80px;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+.durum-info .durum-details {
+    color: #686de3;
+}
+.durum-info .durum-details .balance {
+    font-weight: bold;
+}
+	.durum-info .durum-details .balance a{
+    color: #000;
+}
+	
+	.durum-info .durum-details .knumara {
+    font-weight: bold;
+}
+	.durum-info .durum-details .knumara a{
+    color: #000;
+}
+	
+	.durum-info .durum-details .destek {
+    font-weight: bold;
+}
+	.durum-info .durum-details .destek a{
+    color: #000;
+}

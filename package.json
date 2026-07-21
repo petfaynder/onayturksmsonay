@@ -1,0 +1,12 @@
+{
+  "name": "onaytr-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix onaytr-saas",
+    "build": "npm run build --prefix onaytr-saas",
+    "start": "npm run start --prefix onaytr-saas",
+    "lint": "npm run lint --prefix onaytr-saas",
+    "postinstall": "npm install --prefix onaytr-saas"
+  }
+}

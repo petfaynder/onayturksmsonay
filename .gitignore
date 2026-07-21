@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# next.js
+.next/
+**/.next/
+out/
+
+# env files
+.env
+.env*.local
+**/.env
+
+# temp / backups
+onaytr-saas-temp/
+
+# logs & misc
+*.log
+.DS_Store
