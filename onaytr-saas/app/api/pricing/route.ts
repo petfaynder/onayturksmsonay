@@ -295,7 +295,7 @@ export async function GET() {
 
     const result = {
       exchangeRate,
-      globalMargin: userMarginOverride, // return the resolved tier margin to the user client
+      globalMargin: userTierDiscount, // return the resolved tier discount to the user client
       apps: Array.from(appsMap.entries()).map(([name, data]) => ({ name, ...data })).sort((a, b) => {
         const orderA = serviceSortOrder.get(a.name) ?? 9999;
         const orderB = serviceSortOrder.get(b.name) ?? 9999;

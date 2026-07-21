@@ -112,7 +112,7 @@ export default async function RootLayout({
         {isMaintenanceTriggered ? (
           <MaintenanceScreen message={await getSystemSetting("MAINTENANCE_MODE_MESSAGE", "Sistemimiz güncelleme ve iyileştirme çalışmaları nedeniyle geçici olarak hizmet dışıdır. En kısa sürede tekrar çevrimiçi olacağız.")} />
         ) : (
-          <SessionProvider>
+          <SessionProvider refetchOnWindowFocus={false}>
             <ThemeProvider>
               <LanguageProvider defaultLang={defaultLang} supportedLangs={supportedLangs}>
                 <ToastProvider>
